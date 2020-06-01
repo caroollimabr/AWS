@@ -1,3 +1,9 @@
+Acesso EC2 via Putty: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html?icmpid=docs_ec2_console
+Connection Timed out (Putty): https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html#TroubleshootingInstancesConnectionTimeout
+AWS CLI Install Windows: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
+AWS CLI commands: https://docs.aws.amazon.com/pt_br/cli/latest/userguide/cli-usage-commandstructure.html
+
+
 AWS 
 IAM - Autenticação Multifator > Ativar MFA > Instalar Google Authenticator no celular > QR Code já vincula ao AWS e mostra o Token: mais segurança nos acessos
 
