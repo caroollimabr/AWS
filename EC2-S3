@@ -163,5 +163,94 @@ aws ec2 start-instances --instance-ids <id da instancia> (liga uma instância)
 aws ec2 stop-instances --instance-ids <id da instancia> (desliga uma instancia)
 
 
+S3 - webstore (serviço de armazenamento na web) altamente escalável na nuvem, acesso via API
+
+Benefícios
+Alta escalabilidade: Não precisa adivinhar as necessidades futuras de armazenamento -- sem preocupação com a infraestrutura.
+
+Redundância dos dados: infra durável para armazenar dados importantes e foi projetado para oferecer durabilidade de objetos de 99,999999999%. Dados armazenados c redundância em várias instalações.
+
+Baixo custo: armazenamento de grandes quantidades de dados com custo muito baixo. Com o uso de políticas de ciclo de vida, que será visto no final do curso, pode-se definir políticas para migrar automaticamente dados para a categoria S3 Standard – IA e para o Amazon Glacier que possuem custos até menores do que a categoria Standard
+
+Acessível por interface web e APIs: SDK
+
+Nomes do bucket:
+De 3 a 63 caracteres (começar com minúsculas ou números);
+Use ponto(.) ou hífen(-). 
+Não pode ter care de IP (URL fica inconsistente)
+Outras restrições: http://docs.aws.amazon.com/pt_br/AmazonS3/latest/dev/BucketRestrictions.html
+
+Objeto consiste no dado e no metadado, tem permissões de acesso e são unicamente identificáveis (bucket + key + version)
+
+BUCKET POLICY encontrada na AWS tendo em vista o tipo de permissionamento que vc quer
+
+SITE ESTÁTICO: bucket pode funcionar como servidor, sem backend. (MUDE A BUCKET POLICY/PERMISSÃO)
+
+AMAZON CLOUDFRONT: vc pode obter ganhos como o uso de Cache: https://aws.amazon.com/pt/cloudfront/
+
+AWS CLI comandos
+aws s3 mb s3://<nomedobucket> (cria um novo bucket s3)
+aws s3 ls (lista os buckets que vc tem)
+aws s3 rb s3://<nomedobucket> (remove o bucket s3 -- SÓ DÁ PRA REMOVER SE ELE TIVER VAZIO)
+aws s3 rb s3://<nomedobucket> --force (deleta o bucket por causa do --force)
+aws s3aws ls s3://<nomedobucket> (lista o que tem dentro desses buckets)
+aws s3 cp s3://curso-s3-carol-bucket/4.jpg . (copia o arquivo em questão para a pasta que vc se encontra - por causa do . -- vc pode colocar o endereço final tb C:// etc)
+aws s3 cp arquivo.txt s3://<nomedobucket> (faz o upload do arquivo no bucket)
+aws s3 rm s3://curso-s3-carol-bucket/1.jpg (deleta o arquivo no bucket)
+aws s3 mv s3://curso-s3-carol-bucket/4.jpg s3://curso-s3-carol-bucket/3.jpg (renomeia o arquivo no bucket)
+
+sincronização
+aws s3 sync s3://<nomedobucket> <nomedapastaasercriadanopc> (faz o download do bucket na sua máquina)
+
+aws s3 sync . s3://<nomedobucket> <nomedapastaasercriadanopc> (sincroniza o que tem na sua máquina dentro do bucket (.) para o bucket na amazon -- vc precisa estar dentro do seu bucket)
+
+aws s3 sync . s3://<nomedobucket> <nomedapastaasercriadanopc> --delete (sincroniza o que tem na sua máquina dentro do bucket (.) para o bucket na amazon -- vc precisa estar dentro do seu bucket, --delete inclui as exclusões)
+
+
+ARN - aws resource name
+
+arn:partition:service:region:account-id:resource-type/resource-id
+
+arn:aws:s3:::curso-s3-carol-bucket/ (bucket em questão)
+arn:aws:s3:::curso-s3-carol-bucket/* (todos os objetos desse bucket)
+
+Amazon SDK: permite executar pelo código as mesmas operações executadas no dashboard
+-Pode ser usado para automatizar o processo de upload de arquivos
+-Funciona com muitas linguagens de programação, incluindo Node.js e Java
+No Eclipse
+Procurar "Eclipse Marketplace" > Procurar "aws" > Instalar
+Quando for criar um novo projeto, tem a pasta AWS e vc pode escolher "AWS Java Project", que tem Maven e tal
+
+VERSIONAMENTO/CONTROLE DE VERSÃO: Você pode versionar os objetos armazenados e deletados
+
+LOG/REGISTRO DE ACESSO AO SERVIDOR: O S3 pode fornecer um log com os acessos a um bucket
+
+EXEMPLO DE LOGS RECEBIDOS
+79a59df900b949e55d96a1e67915fbaced09d98eacf8f8218e7cd47ef2be -> ID do proprietário do Bucket
+
+blabla-s3 -> Nome do Bucket
+
+[09/Feb/2019:00:00:38 +0000] -> Data da requisição
+
+191.1.2.3 -> IP do solicitante da requisição
+
+812a06df900b949e55d96a1e543fbacedfd6e09d98123321123123123F -> ID do solicitante (quando for um usuário da AWS), ou anônimo quando não for identificável pela AWS
+
+4E87427F33A59F07 -> ID da Requisição - Amazon gera um ID por request
+
+REST.GET.OBJECT > Operação do request
+
+imagens/logo.jpg -> KEY do obj da requisição
+
+"GET imagens/blabla.jpg HTTP/1.1" -> URI do REQUEST
+
+200 -> Status HTTP da resposta
+
+"Chrome/5.0 (Macintosh; Intel Linux OS X 10_9_6)" -> Informações do Usuário
+
+https://docs.aws.amazon.com/pt_br/AmazonS3/latest/dev/LogFormat.html
+
+
+
 
 
